@@ -1,0 +1,14 @@
+.search {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30rem;
+  height: 4rem;
+  padding-left: 1rem;
+  font-size: 1.6rem;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  opacity: 0.9;
+}

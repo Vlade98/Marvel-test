@@ -1,0 +1,52 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25rem;
+  justify-self: center;
+}
+
+.item-img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.item-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0 2rem;
+}
+
+.item-text h1 {
+  color: #fff;
+}
+
+.item-text button {
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  padding: 0.5rem 1rem;
+}
+
+.item-text button.favorite {
+  background-color: blueviolet;
+}
+
+.item-text button:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 75em) {
+  .item {
+    width: 20rem;
+  }
+
+  .item-text {
+    padding: 0 1rem;
+  }
+}
