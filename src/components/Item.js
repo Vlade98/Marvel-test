@@ -7,9 +7,16 @@ const CharacterItem = props => {
 
   const favorite = item => {
     let previousData = JSON.parse(localStorage.getItem("favorites"));
-    previousData.push(item);
-    localStorage.setItem("favorites", JSON.stringify(previousData));
-    setIsFavorite(true);
+
+    const hasSameItems = previousData.some(itm => {
+      return itm.id === item.id;
+    });
+
+    if (!hasSameItems) {
+      previousData.push(item);
+      localStorage.setItem("favorites", JSON.stringify(previousData));
+      setIsFavorite(true);
+    }
   };
 
   return (
@@ -25,7 +32,7 @@ const CharacterItem = props => {
       <div className="item-text">
         <h1>{props.item.name}</h1>
         <button
-          className={isFavorite ? "favorite" : ""}
+          className={props.favorite || isFavorite ? "favorite" : ""}
           type="button"
           onClick={() => favorite(props.item)}
         >

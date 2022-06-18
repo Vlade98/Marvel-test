@@ -11,9 +11,10 @@ const apiKey = "301ea58f9ae8b1187ed1ddbe3a3dd737";
 const App = () => {
   const [items, setItems] = useState([]);
   const [query, setQuery] = useState("");
+  const [isFavorites, setIsFavorites] = useState(false);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetch = setTimeout(async () => {
       if (query === "") {
         if (
           localStorage.getItem("favorites") === "[]" ||
@@ -27,23 +28,31 @@ const App = () => {
         } else {
           let favorite = JSON.parse(localStorage.getItem("favorites"));
           setItems(favorite);
+          setIsFavorites(true);
         }
       } else {
         const result = await axios(
           `http://gateway.marvel.com/v1/public/characters?nameStartsWith=${query}&ts=1&apikey=${apiKey}&hash=${hash}`
         );
         setItems(result.data.data.results);
+        setIsFavorites(false);
       }
-    };
+    }, 500);
 
-    fetch();
-  }, [query]);
+    return () => {
+      clearTimeout(fetch);
+    };
+  }, [query, isFavorites]);
 
   return (
     <>
       <Header />
       <Search search={q => setQuery(q)}></Search>
-      <ItemsGrid items={items} />
+      <ItemsGrid
+        items={items}
+        isFavorites={isFavorites}
+        setIsFavorites={setIsFavorites}
+      />
     </>
   );
 };
