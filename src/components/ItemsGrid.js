@@ -8,7 +8,14 @@ const ItemsGrid = props => {
     props.setIsFavorites(false);
   };
 
-  return (
+  return props.isLoading ? (
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  ) : (
     <>
       <div
         className={

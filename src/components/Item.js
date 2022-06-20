@@ -23,7 +23,11 @@ const CharacterItem = props => {
     <div className="item">
       <object
         className="item-img"
-        data={props.item.thumbnail.path + "/standard_xlarge.jpg"}
+        data={
+          props.item.thumbnail.path +
+          "/standard_xlarge." +
+          props.item.thumbnail.extension
+        }
         type="image/jpg"
       >
         <img className="item-img" src={altImg} alt="" />

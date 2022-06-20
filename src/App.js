@@ -1,5 +1,5 @@
 import "./style.css";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import ItemsGrid from "./components/ItemsGrid";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -12,6 +12,7 @@ const App = () => {
   const [items, setItems] = useState([]);
   const [query, setQuery] = useState("");
   const [isFavorites, setIsFavorites] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = setTimeout(async () => {
@@ -25,10 +26,12 @@ const App = () => {
             `http://gateway.marvel.com/v1/public/characters?ts=1&apikey=${apiKey}&hash=${hash}`
           );
           setItems(result.data.data.results);
+          setLoading(false);
         } else {
           let favorite = JSON.parse(localStorage.getItem("favorites"));
           setItems(favorite);
           setIsFavorites(true);
+          setLoading(false);
         }
       } else {
         const result = await axios(
@@ -36,6 +39,7 @@ const App = () => {
         );
         setItems(result.data.data.results);
         setIsFavorites(false);
+        setLoading(false);
       }
     }, 500);
 
@@ -52,6 +56,7 @@ const App = () => {
         items={items}
         isFavorites={isFavorites}
         setIsFavorites={setIsFavorites}
+        isLoading={isLoading}
       />
     </>
   );
