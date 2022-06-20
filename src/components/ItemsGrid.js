@@ -9,7 +9,7 @@ const ItemsGrid = props => {
   };
 
   return props.isLoading ? (
-    <div class="lds-ring">
+    <div className="lds-ring">
       <div></div>
       <div></div>
       <div></div>
