@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Item.css";
-import altImg from "../images/alternative-img.jpg";
+import altImg from "../../images/alternative-img.jpg";
 
 const CharacterItem = props => {
   const [isFavorite, setIsFavorite] = useState(false);

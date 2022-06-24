@@ -8,6 +8,12 @@ const ItemsGrid = props => {
     props.setIsFavorites(false);
   };
 
+  const startIndex = (props.page - 1) * props.ITEMS_PER_PAGE;
+  const selectedItems = props.items.slice(
+    startIndex,
+    startIndex + props.ITEMS_PER_PAGE
+  );
+
   return props.isLoading ? (
     <div className="lds-ring">
       <div></div>
@@ -27,8 +33,13 @@ const ItemsGrid = props => {
           Clear List
         </button>
       </div>
+
+      <div className={!props.results ? "message active" : "message"}>
+        <p>No search results for '{props.searchText}'</p>
+      </div>
+
       <section className="items-grid">
-        {props.items.map(item => (
+        {selectedItems.map(item => (
           <CharacterItem
             key={item.id}
             item={item}

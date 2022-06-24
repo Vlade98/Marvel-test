@@ -1,7 +1,7 @@
 .items-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin: 2rem 1rem;
+  margin: 2rem 1rem 3rem 1rem;
   row-gap: 2rem;
 }
 
@@ -72,6 +72,18 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.message {
+  display: none;
+  justify-content: center;
+  color: white;
+  font-size: 2.4rem;
+  margin-top: 3rem;
+}
+
+.message.active {
+  display: flex;
 }
 
 @media (max-width: 75em) {
