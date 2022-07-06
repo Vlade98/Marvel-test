@@ -1,0 +1,71 @@
+.pagination,
+.pagination .page-item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pagination .page-item {
+  background: #e23636;
+  list-style: none;
+}
+
+.pagination .page-item a {
+  text-decoration: none;
+  color: #fdfdfd;
+  height: 4rem;
+  width: 4rem;
+  font-size: 1.6rem;
+  padding-top: 1px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-right-width: 0px;
+  box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.35);
+}
+
+.pagination .page-item a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-top-color: rgba(0, 0, 0, 0.35);
+  border-bottom-color: rgba(0, 0, 0, 0.5);
+}
+
+.pagination .page-item.active {
+  pointer-events: none;
+  padding-top: 0.4rem;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0px 2px 1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.pagination .page-item:first-child a,
+.pagination .page-item:last-child a {
+  min-width: 10rem;
+}
+
+.page-item.disabled {
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 75em) {
+  .pagination .page-item a {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+
+  .pagination .page-item:first-child a,
+  .pagination .page-item:last-child a {
+    min-width: 8rem;
+  }
+}
+
+@media (max-width: 34em) {
+  .pagination .page-item a {
+    height: 3rem;
+    width: 3rem;
+  }
+
+  .pagination .page-item:first-child a,
+  .pagination .page-item:last-child a {
+    min-width: 6rem;
+  }
+}

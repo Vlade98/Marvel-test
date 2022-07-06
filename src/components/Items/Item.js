@@ -16,8 +16,22 @@ const CharacterItem = props => {
       previousData.push(item);
       localStorage.setItem("favorites", JSON.stringify(previousData));
       setIsFavorite(true);
+    } else {
+      const newList = previousData.filter(
+        favourite => favourite.id !== item.id
+      );
+
+      localStorage.setItem("favorites", JSON.stringify(newList));
+      setIsFavorite(false);
+      props.setIsFavorites(false);
     }
   };
+
+  let previousData = JSON.parse(localStorage.getItem("favorites"));
+
+  const hasSameItems = previousData.some(itm => {
+    return itm.id === props.item.id;
+  });
 
   return (
     <div className="item">
@@ -35,12 +49,8 @@ const CharacterItem = props => {
 
       <div className="item-text">
         <h1>{props.item.name}</h1>
-        <button
-          className={props.favorite || isFavorite ? "favorite" : ""}
-          type="button"
-          onClick={() => favorite(props.item)}
-        >
-          Favorite
+        <button type="button" onClick={() => favorite(props.item)}>
+          {hasSameItems ? "Remove" : "Favorite"}
         </button>
       </div>
     </div>

@@ -15,17 +15,13 @@ const App = () => {
   const [isFavorites, setIsFavorites] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [results, setResults] = useState(true);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
   const [searchText, setSearchText] = useState("");
-  const ITEMS_PER_PAGE = 12;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [charactersPerPage] = useState(12);
 
   useEffect(() => {
     const fetch = setTimeout(async () => {
       setLoading(true);
-      const pages = res => {
-        setTotalPages(Math.ceil(res.length / ITEMS_PER_PAGE));
-      };
       if (query === "") {
         if (
           localStorage.getItem("favorites") === "[]" ||
@@ -36,7 +32,6 @@ const App = () => {
             `http://gateway.marvel.com/v1/public/characters?ts=1&limit=100&apikey=${apiKey}&hash=${hash}`
           );
           setItems(result.data.data.results);
-          pages(result.data.data.results);
           setLoading(false);
           setResults(true);
         } else {
@@ -44,14 +39,12 @@ const App = () => {
           setItems(favorite);
           setIsFavorites(true);
           setLoading(false);
-          pages(favorite);
           setResults(true);
         }
       } else {
         const result = await axios(
           `http://gateway.marvel.com/v1/public/characters?nameStartsWith=${query}&ts=1&limit=100&apikey=${apiKey}&hash=${hash}`
         );
-        pages(result.data.data.results);
         if (result.data.data.results.length === 0) {
           setItems(result.data.data.results);
           setLoading(false);
@@ -71,13 +64,16 @@ const App = () => {
     };
   }, [query, isFavorites]);
 
-  const handleClick = data => {
-    setPage(data.selected + 1);
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+  const indexOfLastCharacter = currentPage * charactersPerPage;
+  const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage;
+  const currentCharacters = items.slice(
+    indexOfFirstCharacter,
+    indexOfLastCharacter
+  );
+  const nPages = Math.ceil(items.length / charactersPerPage);
+
+  const handleClick = page => {
+    setCurrentPage(page);
   };
 
   return (
@@ -85,18 +81,16 @@ const App = () => {
       <Header />
       <Search search={q => setQuery(q)}></Search>
       <ItemsGrid
-        items={items}
-        isFavorites={isFavorites}
+        items={currentCharacters}
         setIsFavorites={setIsFavorites}
         isLoading={isLoading}
         results={results}
-        page={page}
-        ITEMS_PER_PAGE={ITEMS_PER_PAGE}
         searchText={searchText}
       />
       <Pagination
-        totalPages={totalPages}
-        handleClick={handleClick}
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={handleClick}
         results={results}
       />
     </>

@@ -1,27 +1,55 @@
 import React from "react";
-import ReactPaginate from "react-paginate";
+import "./Pagination.css";
 
 const Pagination = props => {
+  const pageNumbers = [...Array(props.nPages + 1).keys()].slice(1);
+
+  const nextPage = () => {
+    if (props.currentPage !== props.nPages)
+      props.setCurrentPage(props.currentPage + 1);
+  };
+
+  const prevPage = () => {
+    if (props.currentPage !== 1) props.setCurrentPage(props.currentPage - 1);
+  };
+
   return props.results ? (
-    <ReactPaginate
-      previousLabel={"previous"}
-      nextLabel={"next"}
-      breakLabel={"..."}
-      pageCount={props.totalPages}
-      marginPagesDisplayed={2}
-      pageRangeDisplayed={3}
-      onPageChange={props.handleClick}
-      containerClassName={"pagination justify-content-center pagination-lg"}
-      pageClassName={"page-item"}
-      pageLinkClassName={"page-link"}
-      previousClassName={"page-item"}
-      previousLinkClassName={"page-link"}
-      nextClassName={"page-item"}
-      nextLinkClassName={"page-link"}
-      breakClassName={"page-item"}
-      breakLinkClassName={"page-link"}
-      activeClassName={"active"}
-    />
+    <nav>
+      <ul className="pagination">
+        <li
+          className={`page-item ${props.currentPage === 1 ? "disabled" : ""} `}
+        >
+          <a className="page-link" onClick={prevPage} href="!#">
+            <span>Previous</span>
+          </a>
+        </li>
+        {pageNumbers.map(pgNumber => (
+          <li
+            key={pgNumber}
+            className={`page-item ${
+              props.currentPage === pgNumber ? "active" : ""
+            } `}
+          >
+            <a
+              onClick={() => props.setCurrentPage(pgNumber)}
+              className="page-link"
+              href="!#"
+            >
+              {pgNumber}
+            </a>
+          </li>
+        ))}
+        <li
+          className={`page-item ${
+            props.currentPage === props.nPages ? "disabled" : ""
+          } `}
+        >
+          <a className="page-link" onClick={nextPage} href="!#">
+            <span>Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   ) : (
     ""
   );
