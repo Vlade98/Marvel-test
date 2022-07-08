@@ -1,10 +1,11 @@
 import React from "react";
+
 import banner from "../../images/banner.jpg";
-import "./Header.css";
+import classes from "./Header.module.css";
 
 function Header() {
   return (
-    <header className="header">
+    <header className={classes.header}>
       <img src={banner} alt="" />
       <h1>Marvel</h1>
     </header>

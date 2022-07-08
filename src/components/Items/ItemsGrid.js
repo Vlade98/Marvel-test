@@ -1,10 +1,10 @@
 import React from "react";
 import CharacterItem from "./Item";
-import "./ItemsGrid.css";
+import classes from "./ItemsGrid.module.css";
 
 const ItemsGrid = props => {
   return props.isLoading ? (
-    <div className="lds-ring">
+    <div className={classes["lds-ring"]}>
       <div></div>
       <div></div>
       <div></div>
@@ -12,11 +12,11 @@ const ItemsGrid = props => {
     </div>
   ) : (
     <>
-      <div className={!props.results ? "message active" : "message"}>
-        <p>No search results for '{props.searchText}'</p>
-      </div>
+      <p className={classes.message}>
+        {!props.results && `No search results for ${props.searchText}`}
+      </p>
 
-      <section className="items-grid">
+      <section className={classes["items-grid"]}>
         {props.items.map(item => (
           <CharacterItem
             key={item.id}

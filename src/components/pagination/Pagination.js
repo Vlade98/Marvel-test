@@ -1,5 +1,6 @@
 import React from "react";
-import "./Pagination.css";
+
+import classes from "./Pagination.module.css";
 
 const Pagination = props => {
   const pageNumbers = [...Array(props.nPages + 1).keys()].slice(1);
@@ -15,24 +16,26 @@ const Pagination = props => {
 
   return props.results ? (
     <nav>
-      <ul className="pagination">
+      <ul className={classes.pagination}>
         <li
-          className={`page-item ${props.currentPage === 1 ? "disabled" : ""} `}
+          className={`${classes["page-item"]} ${
+            props.currentPage === 1 ? classes.disabled : ""
+          } `}
         >
-          <a className="page-link" onClick={prevPage} href="!#">
+          <a className={classes["page-link"]} onClick={prevPage} href="!#">
             <span>Previous</span>
           </a>
         </li>
         {pageNumbers.map(pgNumber => (
           <li
             key={pgNumber}
-            className={`page-item ${
-              props.currentPage === pgNumber ? "active" : ""
+            className={`${classes["page-item"]} ${
+              props.currentPage === pgNumber ? classes.active : ""
             } `}
           >
             <a
               onClick={() => props.setCurrentPage(pgNumber)}
-              className="page-link"
+              className={classes["page-link"]}
               href="!#"
             >
               {pgNumber}
@@ -40,11 +43,11 @@ const Pagination = props => {
           </li>
         ))}
         <li
-          className={`page-item ${
-            props.currentPage === props.nPages ? "disabled" : ""
+          className={`${classes["page-item"]} ${
+            props.currentPage === props.nPages ? classes.disabled : ""
           } `}
         >
-          <a className="page-link" onClick={nextPage} href="!#">
+          <a className={classes["page-link"]} onClick={nextPage} href="!#">
             <span>Next</span>
           </a>
         </li>

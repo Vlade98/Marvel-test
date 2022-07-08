@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Search.css";
+
+import classes from "./Search.module.css";
 
 const Search = props => {
   const [text, setText] = useState("");
@@ -13,7 +14,7 @@ const Search = props => {
     <form>
       <input
         type="text"
-        className="search"
+        className={classes.search}
         placeholder="Find a character"
         autoFocus
         onChange={e => onSearch(e.target.value)}

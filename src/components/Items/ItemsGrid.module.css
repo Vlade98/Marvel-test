@@ -75,15 +75,11 @@
 }
 
 .message {
-  display: none;
+  display: flex;
   justify-content: center;
   color: white;
   font-size: 2.4rem;
   margin-top: 3rem;
-}
-
-.message.active {
-  display: flex;
 }
 
 @media (max-width: 75em) {

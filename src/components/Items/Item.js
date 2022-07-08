@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Item.css";
+
+import classes from "./Item.module.css";
 import altImg from "../../images/alternative-img.jpg";
 
 const CharacterItem = props => {
@@ -28,13 +29,12 @@ const CharacterItem = props => {
   };
 
   let previousData = JSON.parse(localStorage.getItem("favorites"));
-
   const hasSameItems = previousData.some(itm => {
     return itm.id === props.item.id;
   });
 
   return (
-    <div className="item">
+    <div className={classes.item}>
       <object
         className="item-img"
         data={
@@ -44,13 +44,13 @@ const CharacterItem = props => {
         }
         type="image/jpg"
       >
-        <img className="item-img" src={altImg} alt="" />
+        <img className={classes["item-img"]} src={altImg} alt="" />
       </object>
 
-      <div className="item-text">
+      <div className={classes["item-text"]}>
         <h1>{props.item.name}</h1>
         <button type="button" onClick={() => favorite(props.item)}>
-          {hasSameItems ? "Remove" : "Favorite"}
+          {isFavorite || hasSameItems ? "Remove" : "Favorite"}
         </button>
       </div>
     </div>
