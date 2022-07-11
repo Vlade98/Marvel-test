@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import debounce from "lodash.debounce";
 
 import "./style.css";
+import axios from "axios";
 import Header from "./components/header/Header";
 import ItemsGrid from "./components/Items/ItemsGrid";
 import Search from "./components/search/Search";
 import Pagination from "./components/pagination/Pagination";
-import axios from "axios";
 
 const hash = "9f77f3bd69f274fd4eacf5168498f51e";
 const apiKey = "301ea58f9ae8b1187ed1ddbe3a3dd737";
