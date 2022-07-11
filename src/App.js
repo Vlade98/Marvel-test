@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import debounce from "lodash.debounce";
 
 import "./style.css";
 import Header from "./components/header/Header";
@@ -21,7 +22,7 @@ const App = () => {
   const [charactersPerPage] = useState(12);
 
   useEffect(() => {
-    const fetch = setTimeout(async () => {
+    const fetch = async () => {
       setLoading(true);
       if (query === "") {
         if (
@@ -58,11 +59,8 @@ const App = () => {
         }
       }
       setSearchText(query, isFavorites);
-    }, 500);
-
-    return () => {
-      clearTimeout(fetch);
     };
+    fetch();
   }, [query, isFavorites]);
 
   const indexOfLastCharacter = currentPage * charactersPerPage;
@@ -77,10 +75,13 @@ const App = () => {
     setCurrentPage(page);
   };
 
+  const updateQuery = q => setQuery(q);
+  const debounceOnChange = debounce(updateQuery, 500);
+
   return (
     <>
       <Header />
-      <Search search={q => setQuery(q)}></Search>
+      <Search search={debounceOnChange}></Search>
       <ItemsGrid
         items={currentCharacters}
         setIsFavorites={setIsFavorites}
